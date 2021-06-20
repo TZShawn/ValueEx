@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="assets/BrandIcon.png" />
+    <title>ValuEx | Connect & Save</title>
+  </head>
+  <body class="has-navbar-fixed-top" onload="loadlistings()">
+    <nav class="navbar has-shadow is-fixed-top">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="index.html">
+          <img
+            src="assets/ValueLogo.png"
+            alt="site logo"
+            style="max-height: 70px"
+            class="py-2 px-2"
+            width="112"
+            height="28"
+          />
+        </a>
+        <a class="navbar-burger" id="burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" id="nav-links">
+        <div class="navbar-start">
+          <a class="navbar-item" href="index.html">Home</a>
+          <a class="navbar-item" href="listing.html">Listing</a>
+          <div class="pt-2">
+            <a
+              class="navbar-item button is-success is-light"
+              href="createlisting.html"
+              >Make a Listing</a
+            >
+          </div>
+        </div>
+
+        <div class="navbar-end px-4 py-2">
+          <!--LogOut button-->
+          <a
+            id="Logout-Navigation-Button"
+            class="navbar-item button pt-2 navbar-end logout"
+            href="index.html"
+            onclick="logout()"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+    <div>
+      <h1 class="mx-6 my-6 title">My Listings</h1>
+    </div>
+
+    <section class="section is-small">
+      <div class="columns">
+        <div class="column">
+          <p class="subtitle bd-notification is-success">Current Catalogue</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="columns is-multiline" id="listgrid"></div>
+
+    <!--------JAVASCRIPT FOR THIS PAGE------------->
+    <script>
+      var gridcol = document.getElementById("listgrid");
+
+      gridcol.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (event.target.tagName === "BUTTON") {
+          const button = event.target;
+
+          var imageID = button.getAttribute("name");
+          var fvjson = { imageID };
+          console.log(fvjson);
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(fvjson),
+          };
+          fetch("/deletelisting", options);
+        }
+      });
+
+      async function loadlistings() {
+        const response = await fetch("/getmylist");
+        const data = await response.json();
+
+        console.log(data);
+
+        toggled = 1;
+
+        for (item of data) {
+          const col = document.createElement("div");
+          col.className = "column is-one-third griditem";
+
+          const card = document.createElement("div");
+          card.className = "card";
+
+          const crdimg = document.createElement("div");
+          crdimg.className = "card-image crdimg";
+          const fig = document.createElement("figure");
+          fig.className = "image is4by3";
+          const imag = document.createElement("img");
+          imag.className = "itimage";
+          imag.style.margin = "auto";
+          imag.src = "/uploads/" + item.image;
+
+          //CARD CONTENT
+          const crdcontent = document.createElement("div");
+          crdcontent.className = "card-content";
+
+          const tit = document.createElement("p");
+          tit.className = "title is-4";
+          tit.textContent = `${item.name}`;
+          const pri = document.createElement("p");
+          pri.className = "subtitle is-6";
+          pri.textContent = `Price: $ ${item.price}`;
+          const loc = document.createElement("p");
+          loc.className = "subtitle is-6 column is-half";
+          loc.textContent = `Location: ${item.location}`;
+          const name = document.createElement("p");
+          name.className = "subtitle is-6 column is-half";
+          name.textContent = `Name: ${item.user}`;
+          const number = document.createElement("a");
+          number.className = "subtitle is-6";
+          number.textContent = `Phone Number: ${item.number}`;
+          number.href = "sms://" + item.number;
+
+          const innercols = document.createElement("div");
+          innercols.className = "columns";
+
+          innercols.append(loc, name);
+
+          const formel = document.createElement("form");
+          const del = document.createElement("button");
+          del.textContent = "delete listing";
+          del.id = "deletebut";
+          del.name = item.image;
+
+          const hide = document.createElement("h1");
+          hide.textContent = "" + item.image;
+          hide.style.display = "none";
+
+          formel.append(del, hide);
+          fig.append(imag);
+          crdimg.append(fig);
+          crdcontent.append(tit, pri, innercols, number, formel);
+          card.append(crdimg, crdcontent);
+          col.append(card);
+
+          gridcol.append(col);
+        }
+      }
+    </script>
+
+    <script>
+      async function checkLogin(bleh) {
+        const res = await fetch("/checkuser");
+        const name = await res.json();
+        console.log(name);
+        console.log(name.usname);
+        if (!name.usname) {
+          console.log("no login");
+          window.location.replace("/login.html");
+        } else {
+          window.location.replace(`./${bleh}`);
+        }
+      }
+
+      async function logout() {
+        const options = { method: "POST" };
+
+        fetch("/logou", options);
+      }
+
+      async function islogout() {
+        const res = await fetch("/checkuser");
+        const name = await res.json();
+        console.log(name);
+        var logr = document.getElementsByClassName("Log-r");
+        var lgout = document.getElementById("Logout-Navigation-Button");
+
+        console.log(logr);
+
+        if (!name.usname) {
+          for (let i = 0; i < 2; i++) {
+            console.log("making dissapear");
+            logr[i].style.display = "block";
+          }
+          lgout.style.display = "none";
+        } else {
+          for (let i = 0; i < 2; i++) {
+            console.log("making dissapear");
+            logr[i].style.display = "none";
+          }
+          lgout.style.display = "block";
+        }
+      }
+    </script>
+    <script src="bash.js"></script>
+  </body>
+</html>

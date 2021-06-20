@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ValuEx | Connect & Save</title>
+    <link rel="icon" href="assets/BrandIcon.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Josefin+Sans"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="login-styling.css" />
+  </head>
+  <body class="has-navbar-fixed-top" onload="islogout()">
+    <div class="overwrap">
+      <nav class="navbar has-shadow is-fixed-top">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="index.html">
+            <img
+              src="assets/ValueLogo.png"
+              alt="site logo"
+              style="max-height: 70px"
+              class="py-2 px-2"
+              width="112"
+              height="28"
+            />
+          </a>
+          <a class="navbar-burger" id="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+        </div>
+
+        <div class="navbar-menu" id="nav-links">
+          <div class="navbar-start">
+            <a class="navbar-item">Home</a>
+            <a class="navbar-item" href="listing.html">Listing</a>
+            <a class="navbar-item" onclick="checkLogin('Account.html')"
+              >Account</a
+            >
+            <div class="pt-2">
+              <a
+                class="navbar-item button is-success is-light"
+                onclick="checkLogin('createlisting.html')"
+                >Make a Listing</a
+              >
+            </div>
+          </div>
+
+          <div class="navbar-end px-4 py-2">
+            <!---login button-->
+
+            <a
+              id="Login-Navigation-Button"
+              class="navbar-item button pt-2 Log-r"
+              href="login.html"
+              >Login</a
+            >
+            <a
+              id="Login-Navigation-Button"
+              class="navbar-item button pt-2 Log-r"
+              href="register.html"
+              >Register</a
+            >
+
+            <!--LogOut button-->
+            <a
+              id="Logout-Navigation-Button"
+              class="navbar-item button pt-2 navbar-end logout"
+              href="index.html"
+              onclick="logout()"
+              >Logout</a
+            >
+          </div>
+
+          <script>
+            async function checkLogin(bleh) {
+              const res = await fetch("/checkuser");
+              const name = await res.json();
+              console.log(name);
+              console.log(name.usname);
+              if (!name.usname) {
+                console.log("no login");
+                window.location.replace("/login.html");
+              } else {
+                window.location.replace(`./${bleh}`);
+              }
+            }
+
+            async function logout() {
+              const options = {
+                method: "POST",
+              };
+
+              fetch("/logou", options);
+            }
+
+            async function islogout() {
+              const res = await fetch("/checkuser");
+              const name = await res.json();
+              console.log(name);
+              var logr = document.getElementsByClassName("Log-r");
+              var lgout = document.getElementById("Logout-Navigation-Button");
+
+              console.log(logr);
+
+              if (!name.usname) {
+                for (let i = 0; i < 2; i++) {
+                  console.log("making dissapear");
+                  logr[i].style.display = "block";
+                }
+                lgout.style.display = "none";
+              } else {
+                for (let i = 0; i < 2; i++) {
+                  console.log("making dissapear");
+                  logr[i].style.display = "none";
+                }
+                lgout.style.display = "block";
+              }
+            }
+          </script>
+        </div>
+      </nav>
+      <section class="section is-medium level">
+        <div class="level-item">
+          <img src="assets/ValueLogo.png" />
+        </div>
+      </section>
+
+      <div class="level">
+        <h1 class="is-size-1 level-item has-text-centered has-text-black">
+          We’ll help you get Connected <br />
+          with Interested Buyers.
+        </h1>
+      </div>
+
+      <div
+        id="box-padding-sizes"
+        class="box pb-4 container level has-text-centered"
+        data-aos="fade-up"
+      >
+        <h2 id="description-of-service" class="container pr-6 level-item">
+          Listing your Item is simple and easy. Sign up to create your account,
+          where you can easily list and manage your items. We’ll put it up on
+          our catalogue and notify you when we’ve found a potential buyer. From
+          there, you’ll discuss where to finish the transaction, saving yet
+          another item from joining a landfill.
+        </h2>
+      </div>
+    </div>
+
+    <section
+      class="section is-medium level columns has-background-grey-lighter"
+    >
+      <div class="column">
+        <h1 class="title pl-4 has-text-left">Save <br />Money.</h1>
+        <div
+          class="box triplets"
+          data-aos="fade-up"
+          data-aos-duration="750"
+          data-aos-offset="50"
+        >
+          <p class="benefit-text">
+            Buying new items probably makes you feel great, but not for long.
+            Brand new often costs far more than any secondhand alternative, even
+            though barely used items last just as long for well below the price.
+            <br /><br />Whether you're a buyer or seller, ValuEx will help you
+            make money on old items and save money on used ones that will meet
+            your needs!
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <h1 class="title pl-4 has-text-left">Help the <br />Planet.</h1>
+        <div
+          class="box triplets"
+          data-aos="fade-up"
+          data-aos-duration="750"
+          data-aos-offset="160"
+        >
+          <p class="benefit-text">
+            Billions of tons of waste are produced each year around the world.
+            Of this, a significant number are perfectly usable items that could
+            have been reused or repurposed. <br /><br />
+            We want to help the planet by connecting people like you, people who
+            see the value in buying secondhand and want to help keep Earth
+            cleaner and greener.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <h1 class="title pl-4 has-text-left">Join the <br />Community.</h1>
+        <div
+          class="box triplets"
+          data-aos="fade-up"
+          data-aos-duration="750"
+          data-aos-offset="220"
+        >
+          <p class="benefit-text">
+            With our growing network of buyers and sellers, you're sure to find
+            something that catches your eye! <br /><br />
+            Encourage others to consider if something can be repurposed or
+            resold before it heads to the landfill. With your contributions to
+            our community, we'll move forward to a greener future together.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="section columns is-medium has-background-success-light level"
+      style="margin-bottom: 0px"
+    >
+      <div class="column is-8">
+        <h1 class="title has-text-left">Give Waste, Get Value</h1>
+        <p class="benefit-text">
+          You may have items lying around that you no longer use, and chances
+          are you’re ready to throw it away. But it still has value. We’ll help
+          connect you with others who’ll be willing to buy your items, ready to
+          give it new life and purpose. <br /><br />Everyone can do their part,
+          and we’re doing ours by diverting waste away from landfills.
+        </p>
+      </div>
+      <div class="column is-4 bepis">
+        <div class="level-item">
+          <image src="./assets/doingOurPart.jpg" alt="greenplanet" />
+        </div>
+      </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+
+    <script src="bash.js"></script>
+
+    <footer class="footer has-background-black">
+      <div class="content has-text-centered has-background-black">
+        <p class="has-text-white">
+          ValueEx. The source code is licensed
+          <a href="/index.html">ValueEx</a>. The website content is licensed
+          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+            >CC BY NC SA 4.0</a
+          >.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

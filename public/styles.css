@@ -1,0 +1,102 @@
+html, body{
+    height: 100%;
+}
+
+h1{
+    font-size: 80px;
+}
+
+h2{
+    font-size: 30px;
+}
+
+.griditem{
+    min-width: 90px !important;
+}
+
+figure{
+    height: 100% !important;
+}
+
+.crdimg{
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.itimage{
+    height: auto !important;
+    width: auto !important;
+    max-height: 300px;
+}
+
+.image{
+    height: 300px !important;
+    overflow: none !important;
+}
+
+.loginbox{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.inputfield{
+    width: 60%;
+    margin: 2.5% 2.5% 2.5% 0%;
+    border-radius: 5px;
+    
+}
+
+.benefit-text{
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.overwrap{
+    height: 100vh;
+}
+
+.triplets{
+    min-height: 100% !important;
+}
+
+#description-of-service{
+    font-size: 26px;
+    max-width: 800px;
+}
+#box-padding-sizes{
+    max-width: 900px
+}
+
+#Login-Navigation-Button{
+    background-color: blueviolet;
+    color: white;
+}
+
+#Logout-Navigation-Button{
+    background-color: blueviolet;
+    color: white;
+}
+
+.bepis{
+    display: flex;
+    justify-content: center;
+}
+
+.footer{
+    padding: 1% 0% !important;
+}
+
+.randomness{
+    text-align: center;
+}
+
+@media only screen and (max-width: 1024px){
+    #burger-menu-or{
+        text-align: center;
+    }
+}
+
+#listgrid{
+    padding: 2% 10%;
+}

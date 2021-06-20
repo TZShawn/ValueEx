@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="login-styling.css">
+        <title>ValuEx | Connect & Save</title>
+        <link rel="icon" href="assets/BrandIcon.png">
+    </head>
+    <body>
+    <body class="has-navbar-fixed-top">
+        <nav class="navbar has-shadow is-fixed-top">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                    <img
+                    src="assets/ValueLogo.png"
+                    alt="site logo"
+                    style="max-height: 70px"
+                    class="py-2 px-2"
+                    width="112"
+                    height="28"
+                    />
+                </a>
+                <a class="navbar-burger" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+
+            <div class="navbar-menu" id="nav-links">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="index.html">Home</a>
+                    <a class="navbar-item" href="listing.html">Listing</a>
+                </div>
+                <<div class="navbar-end px-4 py-2">
+                    <!---Register button-->
+                    <a id="Login-Navigation-Button"
+                    class="navbar-item button pt-2  Log-r"
+                    href="register.html">Register</a>
+                    
+                </div>
+            </div>
+        </nav>
+        <div class="loginbox background">
+            <div class="is one-half-desktop randomness">
+                <h1 class="pt-6 has-text-white">Login</h1>
+                <form class="pt-4" action="/login" method="POST">
+                    <input name="user" class="inputfield input is-normal is-hovered" placeholder="Username" type="text" required />
+                    <input name="pass" class="inputfield input is-normal is-hovered" placeholder="Password" type="text" required />
+                    <div class="pt-2">
+                        <div class="level-item">
+                            <input class=" navbar-item button" type="submit" value="Login">
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
+            <script src="bash.js"></script>
+    </body>
+</html>
